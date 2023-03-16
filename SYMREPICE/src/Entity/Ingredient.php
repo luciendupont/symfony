@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 class Ingredient
 {
@@ -13,14 +15,28 @@ class Ingredient
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(type:'string',length: 50)]
+    #[Assert\notblank()]
+    #[Assert\length(min:2,max:50)]
+    private string $name ;
 
-    #[ORM\Column]
-    private ?float $price = null;
+    #[ORM\Column(type:'float')]
+    #[Assert\NotNull()]
+    #[Assert\positive()]
+    #[Assert\lessthan(200)]
+    private float $price ;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column (type:'DateTime_Immutable')]
+    #[Assert\NotNull()]
+    private DateTimeImmutable $createdAt;
+
+    /*
+    * constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt=new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
