@@ -4,16 +4,20 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
+use app\entity\ingredient;
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $ingredient= new ingredient();
-        $ingredient->setName('Ingredient #1')
-                    ->setPrice(3.0);
+        for ($i=1; $i < 50; $i++) { 
+              $ingredient= new ingredient();
+        $ingredient->setName('Ingredient ',$i)
+                    ->setPrice(mt_rand(0,100)); 
+                  $manager->persist($ingredient);  
+        }
+     
 
-                    
+             
 
         $manager->flush();
     }
