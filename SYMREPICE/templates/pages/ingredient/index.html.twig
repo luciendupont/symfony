@@ -8,6 +8,17 @@
 	<div class="container mt-4">
 		{% if not ingredients.items is same as([]) %}
 			<h1>mes ingredients</h1>
+	<a href="" class="btn btn primary"></a>
+
+
+
+
+			{# read and display just one flash message type #}
+			{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+			{% endfor %}
 
 			<div class="count mt-4">
 				il y a
