@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\IngredientRepository;
-use DateTimeImmutable;
+
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Repository\IngredientRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
@@ -16,22 +15,23 @@ class Ingredient
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type:'string',length: 50)]
-    #[Assert\notblank()]
-    #[Assert\length(min:2,max:50)]
-    private string $name ;
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 50)]
+    private ?string $name = null;
 
-    #[ORM\Column(type:'float')]
+    #[ORM\Column]
     #[Assert\NotNull()]
-    #[Assert\positive()]
-    #[Assert\lessthan(200)]
-    private float $price ;
+    #[Assert\Positive()]
+    #[Assert\LessThan(200)]
+    private ?float $price = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column]
     #[Assert\NotNull()]
-    private ?DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
-/**
+
+    /**
      * Constructor
      */
     public function __construct()
